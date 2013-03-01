@@ -9,7 +9,7 @@ extern	gdt_ptr	;导入全局变量
 
 [section .bss]
 StackSpace	resb	2 * 1024
-StackTop	;栈顶
+StackTop:	;栈顶
 
 	
 [section .text]	;
