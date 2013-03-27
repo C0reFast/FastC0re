@@ -4,12 +4,12 @@
 
 [SECTION .text]
 
-
+;导出函数
+global	memcpy
+	
 ;---------------------------------------------------------------------------
 ;	void* memcpy(void* es:pDest, void* ds:pSrc, int iSize);
 ;---------------------------------------------------------------------------
-
-global	memcpy	;导出函数
 memcpy:
 	push	ebp
 	mov	ebp, esp

@@ -5,12 +5,9 @@
 #include "type.h"
 #include "const.h"
 #include "protect.h"
-
-void* memcpy(void* pDst, void* pSrc, int iSize);
-void disp_str(char* str);
-
-u8		gdt_ptr[6];
-DESCRIPTOR	gdt[GDT_SIZE];
+#include "proto.h"
+#include "string.h"
+#include "global.h"
 
 
 //--------------------------------------------------------------------------
@@ -30,6 +27,13 @@ void cstart()
 
 	*p_gdt_limit = GDT_SIZE * sizeof(DESCRIPTOR) - 1;
 	*p_gdt_base  = (u32)&gdt;
+
+	u16* p_idt_limit = (u16*)(&idt_ptr[0]);
+	u32* p_idt_base  = (u32*)(&idt_ptr[2]);
+	*p_idt_limit = IDT_SIZE * sizeof(GATE) - 1;
+	*p_idt_base  = (u32)&idt;
+
+	init_prot();
 
 	disp_str("--cstart-ends--\n");
 }
