@@ -1,5 +1,5 @@
 ;===========================================================================
-;	syscall.asm
+;   syscall.asm
 ;===========================================================================
 
 %include "sconst.inc"
@@ -11,9 +11,9 @@ INT_VECTOR_SYS_CALL equ 0x90
 global get_ticks
 
 ;---------------------------------------------------------------------------
-;	get_ticks
+;   get_ticks
 ;---------------------------------------------------------------------------
 get_ticks:
-	mov 	eax, _NR_get_ticks
-	int 	INT_VECTOR_SYS_CALL
-	ret
+    mov     eax, _NR_get_ticks
+    int     INT_VECTOR_SYS_CALL
+    ret

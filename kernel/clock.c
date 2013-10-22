@@ -1,5 +1,5 @@
 //==========================================================================
-//	clock.c
+//  clock.c
 //==========================================================================
 
 #include "type.h"
@@ -11,31 +11,29 @@
 #include "global.h"
 
 //--------------------------------------------------------------------------
-//	clock_handler
+//  clock_handler
 //--------------------------------------------------------------------------
 void clock_handler(int irq)
 {
-	ticks++;
-	p_proc_ready->ticks--;
+    ticks++;
+    p_proc_ready->ticks--;
 
-	if (k_reenter != 0) {
-		return;
-	}
+    if (k_reenter != 0) {
+        return;
+    }
 
-	if (p_proc_ready->ticks > 0) {
-		return;
-	}
+    if (p_proc_ready->ticks > 0) {
+        return;
+    }
 
-	schedule();
+    schedule();
 }
 
 //--------------------------------------------------------------------------
-//	milli_delay
+//  milli_delay
 //--------------------------------------------------------------------------
 void milli_delay(int milli_sec)
 {
-	int t = get_ticks();
-	while(((get_ticks() - t) * 1000 / HZ) < milli_sec) {}
+    int t = get_ticks();
+    while(((get_ticks() - t) * 1000 / HZ) < milli_sec) {}
 }
-
-

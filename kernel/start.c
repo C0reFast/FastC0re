@@ -1,5 +1,5 @@
 //==========================================================================
-//	start.c
+//  start.c
 //==========================================================================
 
 #include "type.h"
@@ -12,29 +12,28 @@
 
 
 //--------------------------------------------------------------------------
-//	cstart
+//  cstart
 //--------------------------------------------------------------------------
 
 void cstart()
 {
-	disp_str("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n--cstart-begins--\n");
-	//将 LOADER 中的 GDT 复制到新的 GDT 中
-	memcpy(&gdt,
-		(void*)(*((u32*)(&gdt_ptr[2]))),
-		*((u16*)(&gdt_ptr[0])) + 1
-	      );
-	u16* p_gdt_limit = (u16*)(&gdt_ptr[0]);
-	u32* p_gdt_base  = (u32*)(&gdt_ptr[2]);
+    disp_str("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n--cstart-begins--\n");
+    //将 LOADER 中的 GDT 复制到新的 GDT 中
+    memcpy(&gdt,
+           (void*)(*((u32*)(&gdt_ptr[2]))),
+           *((u16*)(&gdt_ptr[0])) + 1);
+    u16* p_gdt_limit = (u16*)(&gdt_ptr[0]);
+    u32* p_gdt_base  = (u32*)(&gdt_ptr[2]);
 
-	*p_gdt_limit = GDT_SIZE * sizeof(DESCRIPTOR) - 1;
-	*p_gdt_base  = (u32)&gdt;
+    *p_gdt_limit = GDT_SIZE * sizeof(DESCRIPTOR) - 1;
+    *p_gdt_base  = (u32)&gdt;
 
-	u16* p_idt_limit = (u16*)(&idt_ptr[0]);
-	u32* p_idt_base  = (u32*)(&idt_ptr[2]);
-	*p_idt_limit = IDT_SIZE * sizeof(GATE) - 1;
-	*p_idt_base  = (u32)&idt;
+    u16* p_idt_limit = (u16*)(&idt_ptr[0]);
+    u32* p_idt_base  = (u32*)(&idt_ptr[2]);
+    *p_idt_limit     = IDT_SIZE * sizeof(GATE) - 1;
+    *p_idt_base      = (u32)&idt;
 
-	init_prot();
+    init_prot();
 
-	disp_str("--cstart-ends--\n");
+    disp_str("--cstart-ends--\n");
 }
